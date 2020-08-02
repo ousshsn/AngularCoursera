@@ -9,11 +9,13 @@ import 'hammerjs';
 import { MenuComponent } from './menu/menu.component';
 import { MatListModule } from '@angular/material/list';
 import {MatButtonModule, MatCardModule, MatGridListModule} from '@angular/material';
+import { DishdetailsComponent } from './dishdetails/dishdetails.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent
+    MenuComponent,
+    DishdetailsComponent
   ],
   imports: [
     BrowserModule,
