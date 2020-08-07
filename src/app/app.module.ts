@@ -15,7 +15,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
-  MatInputModule
+  MatInputModule, MatSelectModule, MatSlideToggleModule
 } from '@angular/material';
 import { DishdetailsComponent } from './dishdetails/dishdetails.component';
 
@@ -29,7 +29,7 @@ import {AppRoutingModule} from './app-routing/app-routing.module';
 import {PromotionService} from './services/promotion.service';
 import {LeaderService} from './services/leader.service';
 import { LoginComponent } from './login/login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -57,9 +57,10 @@ import {FormsModule} from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    FormsModule
-
-
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   entryComponents: [
     LoginComponent
