@@ -11,11 +11,11 @@ import { MatListModule } from '@angular/material/list';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckbox, MatCheckboxModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
-  MatInputModule, MatSelectModule, MatSlideToggleModule
+  MatInputModule, MatProgressSpinnerModule, MatSelectModule, MatSlideToggleModule
 } from '@angular/material';
 import { DishdetailsComponent } from './dishdetails/dishdetails.component';
 
@@ -60,7 +60,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     LoginComponent
