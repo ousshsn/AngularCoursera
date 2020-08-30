@@ -35,12 +35,12 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset="20px" class="form-size">
+  <div fxFlex fxFlexOffset="20px" class="form-size" [hidden]="submited" >
     <h3>Send us your Feedback</h3>
     <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
 
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
-      <p>
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
+      <p [@expand]>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
           <mat-error *ngIf="formErrors.firstname">{{formErrors.firstname}}</mat-error>
@@ -50,7 +50,7 @@
           <mat-error *ngIf="formErrors.lastname">{{formErrors.lastname}}</mat-error>
         </mat-form-field>
       </p>
-      <p>
+      <p [@expand]>
         <mat-form-field class="half-width">
           <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" pattern="[0-9]*" required>
           <mat-error *ngIf="formErrors.telnum">{{formErrors.telnum}}</mat-error>
@@ -60,7 +60,7 @@
           <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
         </mat-form-field>
       </p>
-      <table class="form-size">
+      <table class="form-size" [@expand]>
         <td>
           <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
         </td>
@@ -72,7 +72,7 @@
           </mat-select>
         </td>
       </table>
-      <p>
+      <p [@expand]>
         <mat-form-field class="full-width">
           <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
         </mat-form-field>
@@ -80,4 +80,30 @@
       <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
     </form>
   </div>
-</div>
+
+
+  <div fxFlex [hidden]="!submited" >
+
+    <mat-list *ngIf="!waiting && feedback else loading" [@expand]>
+      <h4>Your Submission</h4>
+      <mat-list-item>
+        <p matLine>First Name: {{feedback.firstname}}</p>
+        <p matLine>Last Name: {{feedback.lastname}}</p>
+        <p matLine>Tel. Number: {{feedback.telnum}}</p>
+        <p matline>Email : {{feedback.email}} </p>
+        <p matLine>contact Type : {{feedback.contacttype}}</p>
+        <p matLine>message: {{feedback.message}} </p>
+      </mat-list-item>
+
+    </mat-list>
+
+    <ng-template #loading>
+      <div>
+        <mat-spinner></mat-spinner><h4>Submitting Form</h4>
+      </div>
+    </ng-template>
+
+  </div>
+  </div>
+
+

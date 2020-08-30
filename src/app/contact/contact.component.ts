@@ -1,7 +1,8 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup , Validators} from '@angular/forms';
 import {Feedback, ContactType} from '../shared/feedback';
-import {flyInOut} from '../animations/app.animations';
+import {expand, flyInOut} from '../animations/app.animations';
+import {FeedbackService} from '../services/feedback.service';
 
 
 @Component({
@@ -14,13 +15,18 @@ import {flyInOut} from '../animations/app.animations';
   },
   animations: [
     flyInOut()
+    , expand()
   ]
 })
 export class ContactComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective;
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbackCopy: Feedback;
   contactType = ContactType;
+  errMess: string;
+  submited: Boolean;
+  waiting: Boolean;
   formErrors = {
     'firstname': '',
     'lastname': '',
@@ -47,7 +53,8 @@ export class ContactComponent implements OnInit {
       'email' : 'email not in valid format.'
     }
   };
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+  private feedbackService: FeedbackService) {
     this.createForm();
   }
 
@@ -91,6 +98,19 @@ export class ContactComponent implements OnInit {
   onSubmit() {
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.submited = true;
+    this.waiting = true;
+    this.feedbackCopy = this.feedbackForm.value;
+    this.feedbackService.submitFeedback(this.feedbackCopy)
+      .subscribe(feed => {
+        this.feedback = feed;
+        this.feedbackCopy = feed;
+        this.waiting = false;
+          setTimeout(() => {
+            this.submited = false;
+          }, 5000);
+      },
+        errmess => { this.feedback = null; this.feedbackCopy = null; this.errMess = <any>errmess; });
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
